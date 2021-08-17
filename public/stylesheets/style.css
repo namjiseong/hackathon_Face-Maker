@@ -9,3 +9,11 @@ a {
 .picture{
   display: flex;
 }
+.labels{
+  display: flex;
+}
+#progress progress{
+  display: block;
+  margin-left: 10px;
+  padding-top: 20px;
+}

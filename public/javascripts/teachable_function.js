@@ -9,7 +9,8 @@ class teachable_function{
     
         // the link to your model provided by Teachable Machine export panel
         const URL = "https://teachablemachine.withgoogle.com/models/g9RBx3WyR/";
-        let model, webcam, ctx, labelContainer, maxPredictions;
+        let model, webcam, ctx, labelContainer, maxPredictions, webcam_status = false;
+        var sound_check = false;
         var count = 0;
         var status = "nomal";
         async function init() {
@@ -35,13 +36,19 @@ class teachable_function{
             canvas.width = size; canvas.height = size;
             ctx = canvas.getContext("2d");
             labelContainer = document.getElementById("label-container");
+            let progress = document.getElementById("progress");
             for (let i = 0; i < maxPredictions; i++) { // and class labels
                 labelContainer.appendChild(document.createElement("div"));
+                progress.appendChild(document.createElement("progress"));
+                progress.childNodes[i].value = 0;
+                progress.childNodes[i].max = 100;
+
             }
         }
     
         async function loop(timestamp) {
             webcam.update(); // update the webcam frame
+            
             await predict();
             window.requestAnimationFrame(loop);
             
@@ -58,8 +65,13 @@ class teachable_function{
                 const classPrediction =
                     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
                 labelContainer.childNodes[i].innerHTML = classPrediction;
+                progress.childNodes[i].value = prediction[i].probability.toFixed(2) * 100;
+                
+                
             }
             document.getElementById("count").innerHTML=count;
+            
+            
             if (prediction[1].probability > 0.9){
                 if (status == "nomal"){
                     count += 1;
@@ -70,8 +82,10 @@ class teachable_function{
                 if (count >= 5){
                     today = new Date();
                     count = 0;
-                    webcam.stop();
-                    canvas.style.display="none";
+                    webcam.pause();
+                    webcam_status = true;
+                    sound_check = false;
+                    //canvas.style.display="none";
                 }
                 
             }
