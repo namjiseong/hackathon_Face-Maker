@@ -30,6 +30,7 @@ class teachable_machine_init{
       $time.className = "timecount";
       $time.innerHTML = `
       var audio = new Audio('/sound/alarm.wav');
+      
       var today = new Date();
             var timerId = null;
             

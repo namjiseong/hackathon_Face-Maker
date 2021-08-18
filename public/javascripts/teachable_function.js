@@ -10,6 +10,7 @@ class teachable_function{
         // the link to your model provided by Teachable Machine export panel
         const URL = "https://teachablemachine.withgoogle.com/models/g9RBx3WyR/";
         let model, webcam, ctx, labelContainer, maxPredictions, webcam_status = false;
+        var audio2 = new Audio('/sound/dingdong.mp3');
         var sound_check = false;
         var count = 0;
         var status = "nomal";
@@ -75,6 +76,7 @@ class teachable_function{
             if (prediction[1].probability > 0.9){
                 if (status == "nomal"){
                     count += 1;
+                    audio2.play();
                     document.getElementById("pose").src="images/posture2.png";
                 }
                 
@@ -85,6 +87,7 @@ class teachable_function{
                     webcam.pause();
                     webcam_status = true;
                     sound_check = false;
+                    alert("goodjob!");
                     //canvas.style.display="none";
                 }
                 
@@ -92,6 +95,7 @@ class teachable_function{
             if (prediction[0].probability > 0.9){
                 status="nomal";
                 document.getElementById("pose").src="/images/posture.png";
+                
             }
             
             // finally draw the poses
