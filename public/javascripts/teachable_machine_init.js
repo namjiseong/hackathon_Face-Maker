@@ -32,7 +32,7 @@ class teachable_machine_init{
       var audio = new Audio('/sound/alarm.wav');
       var today = new Date();
             var timerId = null;
-            var sound_check = false;
+            
             function check() {
                 
                 
@@ -46,6 +46,7 @@ class teachable_machine_init{
                         if (sound_check == false){
                             audio.play();
                             sound_check = true;
+                            window.open("/alert", "_blank", "width=200, height=200, top=300, left=500")
                         }
                         
                         webcam.play();
@@ -55,6 +56,7 @@ class teachable_machine_init{
                     
                 
             }
+            
             timerId = setInterval(check, 1000);
             
       `;
