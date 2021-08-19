@@ -88,7 +88,7 @@ class teachable_function{
                     webcam_status = true;
                     sound_check = false;
                     alert("goodjob!");
-                    //canvas.style.display="none";
+                    canvas.style.display="none";
                 }
                 
             }
@@ -108,8 +108,8 @@ class teachable_function{
                 // draw the keypoints and skeleton
                 if (pose) {
                     const minPartConfidence = 0.5;
-                    tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
-                    tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+                    //tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+                    //tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
                 }
             }
         }
