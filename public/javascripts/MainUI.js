@@ -1,5 +1,5 @@
 class MainUI {
-  $mainDiv = null;
+ 
   $teachable_machine_init = null;
   $teachable_function = null;
   $timer = null;
