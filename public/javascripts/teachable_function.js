@@ -43,7 +43,7 @@ async function init() {
     await webcam.setup(); // request access to the webcam
     await webcam.play();
     window.requestAnimationFrame(loop);
-
+    document.querySelector("#message").style.display="block";
     // append/get elements to the DOM
     const canvas = document.getElementById("canvas");
     canvas.width = size; canvas.height = size;
@@ -105,6 +105,7 @@ async function predict() {
             sound_check = false;
             //alert("goodjob!");
             canvas.style.display="none";
+            document.querySelector("#message").style.display="none";
         }
         }
         score_on = false;

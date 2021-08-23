@@ -15,7 +15,9 @@ class teachable_machine_init{
     <button type="button" onclick="init()">Start</button>
     <section class="picture">
         <canvas id="canvas"></canvas>
-        <img id="pose" src="images/posture.png" width="400" height="400"><div id="posetime"></div></img>
+        <img id="pose" src="images/posture.png" width="400" height="400"></img>
+        <div id="posetime"></div>
+        <div id="message">타이밍에 맞춰 그림 동작을 따라하세요!</div>
     </section>
     <section class="labels">
     <div id="label-container"></div>
@@ -26,7 +28,7 @@ class teachable_machine_init{
       `;
       this.$teachable_machine_init = $teachable_machine_init;
       $target.appendChild(this.$teachable_machine_init);
-
+      document.querySelector("#message").style.display="none";
       
     }
 }

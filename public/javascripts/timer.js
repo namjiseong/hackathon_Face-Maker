@@ -43,6 +43,7 @@ function check() {
             
             webcam.play();
             canvas.style.display="block";
+            document.querySelector("#message").style.display="block";
         }
         
     }
