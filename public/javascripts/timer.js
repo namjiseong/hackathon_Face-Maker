@@ -36,9 +36,9 @@ function check() {
         
         if (webcam_status == true){
             if (sound_check == false){
-                audio.play();
+                //audio.play();
                 sound_check = true;
-                window.open("/alert", "_blank", "width=200, height=200, top=300, left=500")
+                //window.open("/alert", "_blank", "width=200, height=200, top=300, left=500")
             }
             
             webcam.play();

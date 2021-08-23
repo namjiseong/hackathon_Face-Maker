@@ -11,10 +11,11 @@ class teachable_machine_init{
         <div id="count"></div>
         
         <div>Teachable Machine Pose Model~~</div>
+        <div id="score"></div>
     <button type="button" onclick="init()">Start</button>
     <section class="picture">
-        <div><canvas id="canvas"></canvas></div>
-        <img id="pose" src="images/posture.png" width="400" height="400">
+        <canvas id="canvas"></canvas>
+        <img id="pose" src="images/posture.png" width="400" height="400"><div id="posetime"></div></img>
     </section>
     <section class="labels">
     <div id="label-container"></div>

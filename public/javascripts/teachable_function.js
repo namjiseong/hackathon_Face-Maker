@@ -1,3 +1,4 @@
+
 class teachable_function{
     $teachable_function = null;
     constructor($target){
@@ -6,7 +7,8 @@ class teachable_function{
         $teachable_function.innerHTML = `
         // More API functions here:
         // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
-    
+        //목운동2가지 https://teachablemachine.withgoogle.com/models/q77H_KVus/
+        //손 위로 번쩍 https://teachablemachine.withgoogle.com/models/g9RBx3WyR/
         // the link to your model provided by Teachable Machine export panel
         const URL = "https://teachablemachine.withgoogle.com/models/g9RBx3WyR/";
         let model, webcam, ctx, labelContainer, maxPredictions, webcam_status = false;
@@ -14,12 +16,13 @@ class teachable_function{
         var sound_check = false;
         var count = 0;
         var status = "nomal";
-        
-    
-        
+        var score = [];
+        var ready_tf = false;
+        var score_on = false;
         `;
         this.$teachable_function = $teachable_function;
         $target.appendChild($teachable_function);
+        
     }
 }
 
@@ -54,12 +57,15 @@ async function init() {
         progress.childNodes[i].max = 100;
 
     }
+    
+    
 }
 
 async function loop(timestamp) {
     webcam.update(); // update the webcam frame
     
     await predict();
+    
     window.requestAnimationFrame(loop);
     
 }
@@ -69,8 +75,11 @@ async function predict() {
     // estimatePose can take in an image, video or canvas html element
     const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
     // Prediction 2: run input through teachable machine classification model
+    
+    
     const prediction = await model.predict(posenetOutput);
-
+    
+    
     for (let i = 0; i < maxPredictions; i++) {
         const classPrediction =
             prediction[i].className + ": " + prediction[i].probability.toFixed(2);
@@ -80,35 +89,40 @@ async function predict() {
         
     }
     document.getElementById("count").innerHTML=count;
-    
-    
-    if (prediction[1].probability > 0.9){
-        if (status == "nomal"){
-            count += 1;
+    if(score_on){
+        var score = Math.round(prediction[1].probability*100);
+        document.querySelector("#score").innerHTML=score;
+        if (score > 90){
+            count++;
             audio2.play();
             document.getElementById("pose").src="images/posture2.png";
-        }
-        
-        status = "uphand";
+            status = "uphand";
         if (count >= 5){
             today = new Date();
             count = 0;
             webcam.pause();
             webcam_status = true;
             sound_check = false;
-            alert("goodjob!");
+            //alert("goodjob!");
             canvas.style.display="none";
         }
-        
+        }
+        score_on = false;
     }
+
+    
+    
     if (prediction[0].probability > 0.9){
         status="nomal";
         document.getElementById("pose").src="/images/posture.png";
-        
+        if (ready_tf==false){
+            ready();
+        }
     }
     
     // finally draw the poses
     drawPose(pose);
+    
 }
 
 function drawPose(pose) {
@@ -121,4 +135,22 @@ function drawPose(pose) {
             //tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
         }
     }
+}
+
+function sleep(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+  }
+
+async function ready(){
+    ready_tf = true;
+    let i = 4;
+    var timers = document.querySelector("#posetime");
+    for (;i > 0;i--) {
+        timers.innerHTML=i;
+        await sleep(1000);
+    }
+    score_on = true;
+    
+    ready_tf = false;
+    
 }

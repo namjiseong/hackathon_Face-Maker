@@ -17,3 +17,11 @@ a {
   margin-left: 10px;
   padding-top: 20px;
 }
+#pose{
+  position:relative;
+}
+#posetime{
+  position: absolute;
+  padding-left: 20px;
+  font-size: 40px;
+}
